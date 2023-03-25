@@ -2,7 +2,25 @@ const express = require('express');
 
 const app = express();
 
-app.use('/api/tbcustomers', (req, res, next) => {
+app.use(express.json());
+
+app.use(express.static("../Front/public"));
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next(); // pour passer aux middleware suivants
+  });
+
+app.post('/api/tbcustomers', (req, res, next) => {
+  console.log(req.body);
+  res.status(201).json({
+    message: 'Client créé !'
+  });
+});
+
+app.get('/api/tbcustomers', (req, res, next) => {
     const tbcustomers = [
         {"id":1,"email":"isidro_von@hotmail.com","first":"Torrey","last":"Veum","company":"Google","created_at":"2014-12-25T04:06:27.981Z","country":"Switzerland"},
         {"id":2,"email":"frederique19@gmail.com","first":"Micah","last":"Sanford","company":"Google","created_at":"2014-07-03T16:08:17.044Z","country":"Democratic People's Republic of Korea"},
@@ -56,26 +74,8 @@ app.use('/api/tbcustomers', (req, res, next) => {
         {"id":50,"email":"caitlyn.friesen@hotmail.com","first":"Icie","last":"Beahan","company":"Amazon","created_at":"2014-07-23T16:48:06.206Z","country":"Martinique"}
     ];
     res.status(200).json(tbcustomers);
+    
 });
 
-
-/*app.use((req, res, next) => {
-  console.log('Requête reçue !');
-  next();
-});
-
-app.use((req, res, next) => {
-  res.status(201);
-  next();
-});
-
-app.use((req, res, next) => {
-  res.json({ message: 'Votre requête a bien été reçue !' });
-  next();
-});
-
-app.use((req, res, next) => {
-  console.log('Réponse envoyée avec succès !');
-});*/
 
 module.exports = app;
