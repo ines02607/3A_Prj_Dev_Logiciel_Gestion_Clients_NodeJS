@@ -1,8 +1,17 @@
 const express = require('express');
-
 const app = express();
+const mongoose = require('mongoose');
+
+const User = require('./models/user');
+
+mongoose.connect('mongodb+srv://inesmazouz:yD6Kc9VmKUYzvQH@cluster2.qauexj1.mongodb.net/test?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use(express.static("../Front/public"));
+
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -12,11 +21,15 @@ app.use((req, res, next) => {
     next(); // pour passer aux middleware suivants
   });
 
-app.post('/api/tbcustomers', (req, res, next) => {
-  console.log(req.body);
-  res.status(201).json({
-    message: 'Client créé !'
+app.post('/api/stuff', (req, res, next) => {
+  delete req.body.id;
+  delete req.body.created_at;
+  const user = new User({
+    ...req.body
   });
+  thing.save()
+    .then(() => res.status(201).json({ message: 'Utilisateur enregistré !'}))
+    .catch(error => res.status(400).json({ error }));
 });
 
 app.get('/api/tbcustomers', (req, res, next) => {
@@ -72,9 +85,9 @@ app.get('/api/tbcustomers', (req, res, next) => {
         {"id":49,"email":"russ.bogan28@hotmail.com","first":"Olen","last":"King","company":"Amazon","created_at":"2014-06-02T23:49:48.132Z","country":"Monaco"},
         {"id":50,"email":"caitlyn.friesen@hotmail.com","first":"Icie","last":"Beahan","company":"Amazon","created_at":"2014-07-23T16:48:06.206Z","country":"Martinique"}
     ];
+
     res.status(200).json(tbcustomers);
     
 });
-
 
 module.exports = app;
