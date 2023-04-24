@@ -25,7 +25,7 @@ function buildTable(text) {
         table.innerHTML += row;
     }
 }
-
+/*
 $(document).ready(function() {
   // Charger les données JSON
   $.getJSON("/data/info.json", function(data) {
@@ -69,3 +69,4 @@ $(document).ready(function() {
     }
   });
 });
+*/
