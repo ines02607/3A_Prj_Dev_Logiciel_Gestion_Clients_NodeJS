@@ -14,7 +14,7 @@ html {
   font-size: 62.5%;
 }
 #Ajout{
-  margin: 5%;
+  margin: 1%;
   text-align: center;
 }
 body {
@@ -115,7 +115,17 @@ tfoot th {
   padding: 10px;
   background-color: #423d3d;
 }
-
+.button:hover {
+  line-height: 1;
+  display: inline-block;
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+  color: #000000;
+  padding: 10px;
+  background-color: #847979;
+}
 .select {
   padding-bottom: 20px;
 }
@@ -283,6 +293,18 @@ dd {
   background-color: #000000;
 }
 
+.button2:hover{
+  line-height: 1;
+  display: inline-block;
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+  color: #000000;
+  padding: 10px;
+  background-color: #ffffff;
+}
+
 #cadre{
   border-radius: 30px;
   background-color: #423d3d;
@@ -335,4 +357,28 @@ dd {
   border-radius: 30px;
   padding: 5%;
   margin: 5%;
+}
+
+.button4{
+  line-height: 1;
+  display: inline-block;
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px;
+  background-color: #ff0000;
+}
+
+.button4:hover{
+  line-height: 1;
+  display: inline-block;
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+  color: #ff0000;
+  padding: 10px;
+  background-color: #ffffff;
 }

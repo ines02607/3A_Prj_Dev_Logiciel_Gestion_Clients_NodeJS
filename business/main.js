@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {addUser,getJSON,modifUser,deleteUser,check_field} = require("../data/main");// récuperer les fonctions de ../data
+const {addUser,getJSON,modifUser,deleteUser,check_field} = require("../data/main.js");// récuperer les fonctions de ../data
 
 
 router.post("/", function (req, res) { // récupère la requète "POST"
@@ -29,4 +29,13 @@ router.post("/modif", function (req, res) { // récupère la requète "POST"
     }
     res.redirect("/liste.html");
 });
+
+router.post("/liste", function (req, res) { // récupère la requète "POST"
+    if(req.body.bouton == "supprimer") // attention, il peut ne pas y etre, cela peut provoquer des erreurs
+    {
+        deleteUser(req.body);// fonction qui delete un user
+    }
+    res.redirect("/liste.html");
+});
+
 module.exports = router;

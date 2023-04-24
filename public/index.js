@@ -1,4 +1,4 @@
-fetch("/vroom", {
+/*fetch("/vroom", {
     method: "GET"
 })
     .then((request) =>
@@ -11,7 +11,7 @@ fetch("/vroom", {
     });
 
 function buildTable(text) {
-    var table = document.getElementById("myTable");
+    var table = document.getElementById("client-list");
     for (var i = 0; i < text.length; i++) {
         var row = `<tr>
                             <td><span class="p1-4">${text[i]["id"]}</span></td>
@@ -25,48 +25,120 @@ function buildTable(text) {
         table.innerHTML += row;
     }
 }
-/*
-$(document).ready(function() {
-  // Charger les données JSON
-  $.getJSON("/data/info.json", function(data) {
-    // Nombre d'éléments par page
-    var pageSize = 10;
-    
-    // Nombre total de pages
-    var pageCount = Math.ceil(data.length / pageSize);
-    
-    // Ajouter les éléments de la première page
-    displayList(1);
-    
-    // Générer les boutons de pagination
-    var pagination = $("#pagination");
-    for (var i = 1; i <= pageCount; i++) {
-      var button = $("<button>" + i + "</button>");
-      pagination.append(button);
-    }
-    
-    // Ajouter un gestionnaire d'événements aux boutons de pagination
-    pagination.on("click", "button", function() {
-      displayList($(this).text());
-    });
-    
-    // Fonction pour afficher les éléments d'une page donnée
-    function displayList(page) {
-      var start = (page - 1) * pageSize;
-      var end = start + pageSize;
-      
-      // Afficher les éléments de la page actuelle
-      var list = $("#data");
-      list.empty();
-      for (var i = start; i < end && i < data.length; i++) {
-        var item = $("<div>" + data[i].name + "</div>");
-        list.append(item);
-      }
-      
-      // Mettre à jour la classe active du bouton de pagination
-      pagination.find("button").removeClass("active");
-      pagination.find("button:nth-child(" + page + ")").addClass("active");
-    }
-  });
-});
 */
+
+const table = document.getElementById("client-list");
+const clientsPerPage = 300;
+let currentPage = 0;
+let pages = [];
+
+// --------- Affichage des clients ----------
+
+fetch("/vroom")
+    .then((response) => response.json())
+    .then((customers) => {
+        pages = paginate(customers, clientsPerPage);
+        renderPage(pages[currentPage]);
+        renderPagination();
+    });
+
+// --------- Fonction pour la pagination
+
+function paginate(clients, clientsPerPage) {
+    const pages = [];
+    for (let i = 0; i < clients.length; i += clientsPerPage) {
+        pages.push(clients.slice(i, i + clientsPerPage));
+    }
+    return pages;
+}
+
+// --------- Fonction pour l'affichage
+
+function renderPage(page) {
+    table.innerHTML = "";
+    page.forEach((customer, index) => {
+        const row = table.insertRow();
+        row.insertCell(0).innerHTML = customer.id;
+        row.insertCell(1).innerHTML = customer.first;
+        row.insertCell(2).innerHTML = customer.last;
+        row.insertCell(3).innerHTML = customer.company;
+        row.insertCell(4).innerHTML = customer.country;
+        row.insertCell(5).innerHTML = customer.email;
+        row.insertCell(6).innerHTML = formatDateTime(customer.created_at);
+
+        // Ajout du bouton Modifier :
+        const editButton = document.createElement("button");
+        editButton.innerText = "Modifier";
+        editButton.className = "button2";
+        editButton.idName = "editButton";
+        row.insertCell(7).appendChild(editButton);
+
+        // Ajouter un gestionnaire d'événements pour le bouton "Edit"
+        editButton.addEventListener("click", () => {
+        // Rediriger l'utilisateur vers la page "modifier.html" avec l'identifiant unique du client
+            window.location.href = `/modif.html?id=${customer.id}`;
+        });
+        
+        // Ajout du bouton Supprimer
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Delete';
+        deleteButton.className = 'button4';
+        row.insertCell(8).appendChild(deleteButton);
+
+        deleteButton.addEventListener("click", () => {
+            // Rediriger l'utilisateur vers la page "suppr.html" avec l'identifiant unique du client
+            window.location.href = `/suppr.html?id=${customer.id}`;
+        });
+
+    });
+}
+
+// --------- Fonction pour formater la date et l'heure
+function formatDateTime(dateTimeString) {
+    const date = new Date(dateTimeString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear().toString();
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return `${day}/${month}/${year} à ${hours}:${minutes}`;
+}
+
+// --------- Pagination des clients (pour charger plus vite la page on affiche 909 (diviseur de 9999) clients par page)
+
+function renderPagination() {
+    const paginationContainer = document.querySelector(".pagination-container");
+    const paginationList = paginationContainer.querySelector(".pagination");
+    const prevBtn = paginationList.querySelector(":first-child");
+    const nextBtn = paginationList.querySelector(":last-child");
+    paginationList.innerHTML = "";
+
+    if (pages.length <= 1) {
+        paginationContainer.style.display = "none";
+        return;
+    }
+
+    for (let i = 0; i < pages.length; i++) {
+        const pageBtn = document.createElement("li");
+        pageBtn.classList.add("page-item");
+        pageBtn.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+        pageBtn.addEventListener("click", () => {
+            currentPage = i;
+            renderPage(pages[currentPage]);
+            updatePagination();
+        });
+        paginationList.insertBefore(pageBtn, nextBtn);
+    }
+
+    function updatePagination() {
+        const currentPageBtn = paginationList.querySelector(".active");
+        if (currentPageBtn) {
+            currentPageBtn.classList.remove("active");
+        }
+        paginationList.children[currentPage].classList.add("active");
+    }
+
+    paginationContainer.style.display = "block";
+    updatePagination();
+}
+
