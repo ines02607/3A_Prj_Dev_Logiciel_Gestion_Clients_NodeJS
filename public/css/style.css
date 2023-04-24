@@ -65,10 +65,16 @@ tr {
   padding-bottom: 10px;
 }
 
+tbody tr:hover td {
+  color: #3f3838;
+  background: #fff4db;
+}
+
 td {
   padding: 10px 10px 0;
   text-align: center;
 }
+
 td:before {
   content: attr(data-title);
   color: #7a91aa;

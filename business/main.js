@@ -13,8 +13,14 @@ router.post("/", function (req, res) { // récupère la requète "POST"
         console.log("Impossible car les champs sont mal rensigné");
         // dire à l'utilisateur qu'il y a eu un problème
     }
-    res.redirect("/liste.html");
+    //res.redirect("/liste.html");
+    res.redirect("http://localhost:3000/liste.html");
+    window.location.href = "/liste.html";
+        setTimeout(() => {
+            location.reload();
+        }, 2000); // rafraîchit la page après 5 secondes
 });
+
 router.get("/", function (req, res) { // récupère la requète "GET"
     res.send(getJSON());
 });
@@ -27,7 +33,12 @@ router.post("/modif", function (req, res) { // récupère la requète "POST"
     {
         deleteUser(req.body);// fonction qui delete un user
     }
-    res.redirect("/liste.html");
+    //res.redirect("/liste.html");
+    res.redirect("http://localhost:3000/liste.html");
+    window.location.href = "/liste.html";
+        setTimeout(() => {
+            location.reload();
+        }, 2000); // rafraîchit la page après 5 secondes
 });
 
 router.post("/liste", function (req, res) { // récupère la requète "POST"
@@ -35,7 +46,12 @@ router.post("/liste", function (req, res) { // récupère la requète "POST"
     {
         deleteUser(req.body);// fonction qui delete un user
     }
-    res.redirect("/liste.html");
+    //res.redirect("/liste.html");
+    res.redirect("http://localhost:3000/liste.html");
+    window.location.href = "/liste.html";
+        setTimeout(() => {
+            location.reload();
+        }, 2000); // rafraîchit la page après 5 secondes
 });
 
 module.exports = router;
