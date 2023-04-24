@@ -25,3 +25,47 @@ function buildTable(text) {
         table.innerHTML += row;
     }
 }
+
+$(document).ready(function() {
+  // Charger les données JSON
+  $.getJSON("/data/info.json", function(data) {
+    // Nombre d'éléments par page
+    var pageSize = 10;
+    
+    // Nombre total de pages
+    var pageCount = Math.ceil(data.length / pageSize);
+    
+    // Ajouter les éléments de la première page
+    displayList(1);
+    
+    // Générer les boutons de pagination
+    var pagination = $("#pagination");
+    for (var i = 1; i <= pageCount; i++) {
+      var button = $("<button>" + i + "</button>");
+      pagination.append(button);
+    }
+    
+    // Ajouter un gestionnaire d'événements aux boutons de pagination
+    pagination.on("click", "button", function() {
+      displayList($(this).text());
+    });
+    
+    // Fonction pour afficher les éléments d'une page donnée
+    function displayList(page) {
+      var start = (page - 1) * pageSize;
+      var end = start + pageSize;
+      
+      // Afficher les éléments de la page actuelle
+      var list = $("#data");
+      list.empty();
+      for (var i = start; i < end && i < data.length; i++) {
+        var item = $("<div>" + data[i].name + "</div>");
+        list.append(item);
+      }
+      
+      // Mettre à jour la classe active du bouton de pagination
+      pagination.find("button").removeClass("active");
+      pagination.find("button:nth-child(" + page + ")").addClass("active");
+    }
+  });
+});
