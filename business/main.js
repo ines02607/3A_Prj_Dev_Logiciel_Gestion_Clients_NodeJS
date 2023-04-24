@@ -15,10 +15,6 @@ router.post("/", function (req, res) { // récupère la requète "POST"
     }
     //res.redirect("/liste.html");
     res.redirect("http://localhost:3000/liste.html");
-    window.location.href = "/liste.html";
-        setTimeout(() => {
-            location.reload();
-        }, 2000); // rafraîchit la page après 5 secondes
 });
 
 router.get("/", function (req, res) { // récupère la requète "GET"
@@ -35,10 +31,6 @@ router.post("/modif", function (req, res) { // récupère la requète "POST"
     }
     //res.redirect("/liste.html");
     res.redirect("http://localhost:3000/liste.html");
-    window.location.href = "/liste.html";
-        setTimeout(() => {
-            location.reload();
-        }, 2000); // rafraîchit la page après 5 secondes
 });
 
 router.post("/liste", function (req, res) { // récupère la requète "POST"
@@ -48,10 +40,6 @@ router.post("/liste", function (req, res) { // récupère la requète "POST"
     }
     //res.redirect("/liste.html");
     res.redirect("http://localhost:3000/liste.html");
-    window.location.href = "/liste.html";
-        setTimeout(() => {
-            location.reload();
-        }, 2000); // rafraîchit la page après 5 secondes
 });
 
 module.exports = router;

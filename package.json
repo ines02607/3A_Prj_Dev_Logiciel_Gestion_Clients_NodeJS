@@ -10,6 +10,7 @@
     "fs": "^0.0.1-security",
     "fs.promises": "^0.1.2",
     "logger": "^0.0.1",
+    "mongoose": "^7.0.5",
     "morgan": "^1.10.0",
     "xmlhttprequest": "^1.8.0"
   }
