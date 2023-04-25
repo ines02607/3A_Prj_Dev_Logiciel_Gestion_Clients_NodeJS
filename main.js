@@ -1,7 +1,7 @@
 // --------------- MODULES IMPORT ---------------
 
 const express = require("express");
-const vroomRooter = require("./business/main.js");
+const vroomRooter = require("./backend/business/main.js");
 const logger = require("morgan"); 
 
 // --------------- SERVER SETUP ---------------
@@ -9,6 +9,8 @@ const logger = require("morgan");
 
 const app = express();
 const port = 3000;  // Localhost Port
+
+
 /*const User = require('./models/user.js');
 
 const mongoose = require('mongoose');
@@ -30,6 +32,8 @@ app.post("/vroom", (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 });
 */
+
+
 app.listen(port, () => {
     console.log(`App listening to port ${port}`);
 });
@@ -37,6 +41,6 @@ app.use(logger("dev")); // permet d'avoir un retour des requetes sur le terminal
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.use(express.static("public"));
+app.use(express.static("frontend/public"));
 app.use("/vroom", vroomRooter);
 

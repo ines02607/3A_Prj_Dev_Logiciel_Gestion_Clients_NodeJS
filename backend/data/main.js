@@ -5,7 +5,7 @@ const fs = require("fs");
 // --------------- RECUP POST INFORMATION ---------------
 
 const addUser = (options) => {
-    const fileData = fs.readFileSync("./data/info.json", "utf-8");
+    const fileData = fs.readFileSync("./backend/data/info.json", "utf-8");
     let JSONData = JSON.parse(fileData);
     if (JSONData.length == 0) {
         options.id = 1; // quand le tableau est vide, stocke 1 dans l'id
@@ -15,10 +15,10 @@ const addUser = (options) => {
     }
     options.created_at = (new Date()).toUTCString(); // ajouter la date de création du client
     JSONData.push(options);
-    fs.writeFileSync("./data/info.json", JSON.stringify(JSONData)); // save it
+    fs.writeFileSync("./backend/data/info.json", JSON.stringify(JSONData)); // save it
 };
 const modifUser = (options) => {
-    const fileData = fs.readFileSync("./data/info.json", "utf-8");
+    const fileData = fs.readFileSync("./backend/data/info.json", "utf-8");
     let JSONData = JSON.parse(fileData);
     let rang = find_rank(JSONData,options);
     JSONData[rang].last = options.last; // Permet d'écrire par dessus les champs existants
@@ -27,19 +27,19 @@ const modifUser = (options) => {
     JSONData[rang].company = options.company;
     JSONData[rang].country = options.country;
 
-    fs.writeFileSync("./data/info.json", JSON.stringify(JSONData)); // save it
+    fs.writeFileSync("./backend/data/info.json", JSON.stringify(JSONData)); // save it
 };
 const deleteUser = (options) => {
     // supprime un utilisateur
     console.log(`On va supprimer le client portant l'id : ${options.id}`);
-    const fileData = fs.readFileSync("./data/info.json", "utf-8");
+    const fileData = fs.readFileSync("./backend/data/info.json", "utf-8");
     let JSONData = JSON.parse(fileData);
     JSONData.splice(find_rank(JSONData,options), 1); // supprime "1" élément en position "options.id-1" 
-    fs.writeFileSync("./data/info.json", JSON.stringify(JSONData)); // save it
+    fs.writeFileSync("./backend/data/info.json", JSON.stringify(JSONData)); // save it
 };
 const getJSON = () => {
     // renvoie le JSON intact
-    const fileData = fs.readFileSync("./data/info.json", "utf-8").toString();
+    const fileData = fs.readFileSync("./backend/data/info.json", "utf-8").toString();
     return fileData;
 };
 // find_rank permet à partir d'un id de trouver son rang dans un JSON
