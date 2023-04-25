@@ -10,6 +10,8 @@ Puis, dans le navigateur, il faut lancer :
 
 > http://localhost:3000
 
-J'ai également début une initialisation sous mongoDB sans succès (partie commenté dans le fichier main.js)
+## MongDB 
+
+J'ai également débuté une initialisation sous mongoDB sans succès (partie commenté dans le fichier 'main.js' & dossier models) 
 
 ## Attention : Parfois, il faut rafraichir la page pour accéder aux données actualisées !
