@@ -388,3 +388,9 @@ dd {
   padding: 10px;
   background-color: #ffffff;
 }
+
+#myChart{
+  color: #000000;
+  font-family: 'Days One', sans-serif;
+  font-size: 20px;
+}

@@ -52,7 +52,7 @@ function renderPage(page) {
         
         // Ajout du bouton Supprimer
         const deleteButton = document.createElement('button');
-        deleteButton.innerText = 'Delete';
+        deleteButton.innerText = 'Supprimer';
         deleteButton.className = 'button4';
         row.insertCell(8).appendChild(deleteButton);
 
@@ -112,4 +112,3 @@ function renderPagination() {
     paginationContainer.style.display = "block";
     updatePagination();
 }
-

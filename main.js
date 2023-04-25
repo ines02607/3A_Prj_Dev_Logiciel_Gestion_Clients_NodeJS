@@ -9,7 +9,8 @@ const logger = require("morgan");
 
 const app = express();
 const port = 3000;  // Localhost Port
-const User = require('./models/user.js');
+/*const User = require('./models/user.js');
+
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://inesmazouz:yD6Kc9VmKUYzvQH@cluster2.qauexj1.mongodb.net/test?retryWrites=true&w=majority',
@@ -18,7 +19,17 @@ mongoose.connect('mongodb+srv://inesmazouz:yD6Kc9VmKUYzvQH@cluster2.qauexj1.mong
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-
+app.post("/vroom", (req, res, next) => {
+  delete req.body.id;
+  delete req.body.created_at;
+  const user = new User({
+    ...req.body
+  });
+  user.save()
+    .then(() => res.status(201).json({ message: 'User enregistré !'}))
+    .catch(error => res.status(400).json({ error }));
+});
+*/
 app.listen(port, () => {
     console.log(`App listening to port ${port}`);
 });
