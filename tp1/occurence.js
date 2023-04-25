@@ -31,7 +31,7 @@ const occurence = {
                     {
                         k["occurrence"]++ ;
                     }
-                })
+                });
                 
             }//test
             else
@@ -43,7 +43,7 @@ const occurence = {
                 a["occurrence"] = 1 ;
                 tab2.push(a);
             }
-        })
+        });
         // on retourne le tableau de sortie avec noms des objets et occurences
         return tab2;
     }
