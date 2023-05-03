@@ -6,7 +6,6 @@ const logger = require("morgan");
 
 // --------------- SERVER SETUP ---------------
 
-
 const app = express();
 const port = 3000;  // Localhost Port
 
@@ -35,12 +34,11 @@ app.post("/vroom", (req, res, next) => {
 
 
 app.listen(port, () => {
-    console.log(`App listening to port ${port}`);
+    console.log(`App lancée sur le port ${port}`);
 });
 app.use(logger("dev")); // permet d'avoir un retour des requetes sur le terminal
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.use(express.static("frontend/public"));
+app.use(express.static("./frontend/public"));
 app.use("/vroom", vroomRooter);
-
