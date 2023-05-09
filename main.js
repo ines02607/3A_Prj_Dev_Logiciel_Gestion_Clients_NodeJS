@@ -1,14 +1,15 @@
-// --------------- MODULES IMPORT ---------------
+// ====================== MAIN DU PROJET =================================
 
+// On importe les modules nécessaires
 const express = require("express");
 const vroomRooter = require("./backend/business/main.js");
 const logger = require("morgan"); 
 
-// --------------- SERVER SETUP ---------------
-
+// Paramètres du serveur 
 const app = express();
-const port = 3000;  // Localhost Port
+const port = 3000; // on choisit un port local
 
+// J'ai essayé de créer un lien vers MongoDB via le module mongoose
 
 /*const User = require('./models/user.js');
 
@@ -32,13 +33,16 @@ app.post("/vroom", (req, res, next) => {
 });
 */
 
-
+// Message dans le terminal
 app.listen(port, () => {
     console.log(`App lancée sur le port ${port}`);
 });
-app.use(logger("dev")); // permet d'avoir un retour des requetes sur le terminal
-app.use(express.json()); // for parsing application/json
-app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+
+app.use(logger("dev")); // permet d'avoir un retour des requetes sur le terminal
+app.use(express.json()); // lien entre express et json
+app.use(express.urlencoded({ extended: true }));
+
+// On vient relier aux fichiers statiques du FrontEnd
 app.use(express.static("./frontend/public"));
 app.use("/vroom", vroomRooter);
