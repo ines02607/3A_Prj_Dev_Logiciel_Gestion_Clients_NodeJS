@@ -3,8 +3,7 @@ const clientsPerPage = 300;
 let currentPage = 0;
 let pages = [];
 
-// --------- Affichage des clients ----------
-
+// ================ Affichage des clients ===============
 fetch("/vroom")
     .then((response) => response.json())
     .then((customers) => {
@@ -13,17 +12,17 @@ fetch("/vroom")
         renderPagination();
     });
 
-// --------- Fonction pour la pagination
-
+// ================ Fonction de pagination ================
 function paginate(clients, clientsPerPage) {
     const pages = [];
-    for (let i = 0; i < clients.length; i += clientsPerPage) {
+    for (let i = 0; i < clients.length; i += clientsPerPage) 
+    {
         pages.push(clients.slice(i, i + clientsPerPage));
     }
     return pages;
 }
 
-// --------- Fonction pour l'affichage
+// ================ Fonction d'affichage de la liste ================
 
 function renderPage(page) {
     table.innerHTML = "";
@@ -51,9 +50,9 @@ function renderPage(page) {
         });
         
         // Ajout du bouton Supprimer
-        const deleteButton = document.createElement('button');
-        deleteButton.innerText = 'Supprimer';
-        deleteButton.className = 'button4';
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Supprimer";
+        deleteButton.className = "button4";
         row.insertCell(8).appendChild(deleteButton);
 
         deleteButton.addEventListener("click", () => {
@@ -64,7 +63,7 @@ function renderPage(page) {
     });
 }
 
-// --------- Fonction pour formater la date et l'heure
+// ========== Fonction de formatage de la date et de l'heure ===============
 function formatDateTime(dateTimeString) {
     const date = new Date(dateTimeString);
     const day = date.getDate().toString().padStart(2, "0");
@@ -75,7 +74,7 @@ function formatDateTime(dateTimeString) {
     return `${day}/${month}/${year} à ${hours}:${minutes}`;
 }
 
-// --------- Pagination des clients (pour charger plus vite la page on affiche 909 (diviseur de 9999) clients par page)
+// ============== Pagination des clients (300 par pages) ===============
 
 function renderPagination() {
     const paginationContainer = document.querySelector(".pagination-container");
