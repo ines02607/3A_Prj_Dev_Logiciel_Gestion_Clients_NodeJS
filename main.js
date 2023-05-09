@@ -9,6 +9,7 @@ const logger = require("morgan");
 const app = express();
 const port = 3000; // on choisit un port local
 
+// ================================================================
 // J'ai essayé de créer un lien vers MongoDB via le module mongoose
 
 /*const User = require('./models/user.js');
@@ -32,6 +33,7 @@ app.post("/vroom", (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 });
 */
+// ================================================================
 
 // Message dans le terminal
 app.listen(port, () => {

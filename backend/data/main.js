@@ -1,9 +1,7 @@
-// --------------- MODULES IMPORT ---------------
-
+// Importation des modules
 const fs = require("fs");
 
-// --------------- RECUP POST INFORMATION ---------------
-
+// ============= Fonction d'ajout d'un user ================
 const addUser = (options) => {
     const fileData = fs.readFileSync("./backend/data/info.json", "utf-8");
     let JSONData = JSON.parse(fileData);
@@ -17,6 +15,8 @@ const addUser = (options) => {
     JSONData.push(options);
     fs.writeFileSync("./backend/data/info.json", JSON.stringify(JSONData)); // save it
 };
+
+// ============= Fonction de modification d'un user ================
 const modifUser = (options) => {
     const fileData = fs.readFileSync("./backend/data/info.json", "utf-8");
     let JSONData = JSON.parse(fileData);
@@ -29,6 +29,8 @@ const modifUser = (options) => {
 
     fs.writeFileSync("./backend/data/info.json", JSON.stringify(JSONData)); // save it
 };
+
+// ============= Fonction de suppression d'un user ================
 const deleteUser = (options) => {
     // supprime un utilisateur
     console.log(`On va supprimer le client portant l'id : ${options.id}`);
@@ -37,12 +39,15 @@ const deleteUser = (options) => {
     JSONData.splice(find_rank(JSONData,options), 1); // supprime "1" élément en position "options.id-1" 
     fs.writeFileSync("./backend/data/info.json", JSON.stringify(JSONData)); // save it
 };
+
+// ============= Constante de renvoie du fichier JSON ================
 const getJSON = () => {
     // renvoie le JSON intact
     const fileData = fs.readFileSync("./backend/data/info.json", "utf-8").toString();
     return fileData;
 };
-// find_rank permet à partir d'un id de trouver son rang dans un JSON
+
+// ============= Fonction de recherche d'un rang à partir de l'id dans un fichier JSON ================
 function find_rank(content,more) // content : le JSON, more : un objet du JSON
 {
     let rang;
@@ -54,19 +59,24 @@ function find_rank(content,more) // content : le JSON, more : un objet du JSON
     }
     return rang;
 }
+
+// ============= Constante de vérification des champs du formulaire ================
 const check_field = (options) => {
+    // Fonction de vérification de l'email entré
     function checkEmail(email) {
         var re = /^[a-z0-9.-]{2,}@+[a-z0-9.-]{2,}$/i;
         return re.test(email);
     }
+    // Fonction de vérification du nom entré
     function checkName(name) {
         return isNaN(name);
     }
+
     if (checkEmail(options.email) && checkName(options.last)) {
         return 1;
     } else {
         return 0;
     }
 };
-
-module.exports = { addUser, getJSON, modifUser, deleteUser,check_field}; // permet de pouvoir exporter les fonctions dans d'autres fichier
+// Exportation des fonctions pour une utilisation dans un autre fichier
+module.exports = { addUser, getJSON, modifUser, deleteUser,check_field}; 

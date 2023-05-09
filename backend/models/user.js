@@ -1,5 +1,7 @@
+// Importation du module mongoose
 const mongoose = require("mongoose");
 
+// Définition d'un schéma pour MongoDB avec les différents champs
 const userSchema = mongoose.Schema({
     last: { type: String, required: true },
     first: { type: String, required: true },
@@ -8,4 +10,5 @@ const userSchema = mongoose.Schema({
     country: {type: String, required:true},
 });
 
+// On exporte sous la forme d'un modèle nommé 'User'
 module.exports = mongoose.model("User", userSchema);
