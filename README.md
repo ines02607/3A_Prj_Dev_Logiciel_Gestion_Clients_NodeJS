@@ -17,5 +17,3 @@ J'ai également débuté une initialisation sous mongoDB sans succès (partie co
 ## TP1
 
 Le TP1 sur les occurrences en pays & entreprises est disponible dans le dossier TP1 (affichage d'un menu dans le terminal)
-
-## Attention : Parfois, il faut rafraichir la page pour accéder aux données actualisées !
