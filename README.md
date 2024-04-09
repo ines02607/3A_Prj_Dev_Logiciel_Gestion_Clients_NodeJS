@@ -10,7 +10,7 @@ Puis, dans le navigateur, il faut lancer :
 
 > http://localhost:3000
 
-## MongDB 
+## MongoDB 
 
 J'ai également débuté une initialisation sous mongoDB sans succès (partie commenté dans le fichier 'main.js' & dossier models) 
 
